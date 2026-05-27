@@ -683,11 +683,22 @@ footer {
   padding: 4rem 6rem 2rem;
 }
 .footer-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 2.5rem;
   max-width: 1400px;
   margin: 0 0 3.5rem 0;
+}
+.footer-cols-group {
+  display: flex;
+  gap: 3.5rem;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+.footer-brand {
+  max-width: 320px;
+  flex-shrink: 0;
 }
 .footer-brand .logo-text {
   font-family: Montserrat, sans-serif;
@@ -806,7 +817,8 @@ a.social-btn {
 /* RESPONSIVE  */
 @media (max-width: 900px) {
   .problem-grid, .steps-grid, .features-grid, .reviews-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid { flex-wrap: wrap; }
+  .footer-cols-group { gap: 2rem; }
   footer { padding: 3rem 2rem 2rem; }
   .hero-content { padding: 0 2rem 140px; }
   .bar-item { padding: 0.65rem 1rem; }
@@ -816,7 +828,8 @@ a.social-btn {
 }
 
 @media (max-width: 640px) {
-  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid { flex-direction: column; }
+  .footer-cols-group { flex-wrap: wrap; gap: 1.5rem; }
   footer { padding: 2.5rem 1.5rem 1.5rem; }
   .hero-bar { flex-wrap: wrap; }
   .bar-item { min-width: 50%; }
