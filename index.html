@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- page settings -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AIMargdarshak — Intelligent Travel Planning</title>
+
+<!-- google fonts: montserrat and roboto -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+
+<!-- main stylesheet -->
+<link rel="stylesheet" href="style.css" />
+
+<!-- favicon and app icons -->
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="aimargdarshakLogo.png" />
+<link rel="apple-touch-icon" href="aimargdarshakLogo.png" />
+
+</head>
+<body>
+
+<!-- intro splash screen: shown on first load, hides after animation -->
+<div id="intro-screen">
+  <div class="intro-bg-glow"></div>
+  <div class="intro-content">
+    <div class="intro-ai-label">AI</div>
+    <div class="intro-logo">Margdar<span class="intro-gold">shak</span></div>
+    <div class="intro-tagline">YOUR INTELLIGENT TRAVEL COMPANION</div>
+    <div class="intro-line"></div>
+    <!-- animated loading dots -->
+    <div class="intro-dots">
+      <div class="intro-dot"></div>
+      <div class="intro-dot"></div>
+      <div class="intro-dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- top navigation bar -->
+<nav>
+  <!-- logo with image and text -->
+  <a class="nav-logo" href="#">
+  <img src="aimargdarshakLogo.png" alt="AIMargdarshak Logo" style="height: 40px; width: auto;" />
+  <span><span class="logo-ai">AIMargdar</span><span class="logo-gold">shak</span></span>
+</a>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#">About</a></li>
+    <!-- our team button opens the team overlay -->
+    <li><a href="#" id="our-team-nav-btn">Our Team</a></li>
+    <!-- saved itineraries button opens saved overlay -->
+    <li><span class="nav-saved" id="saved-nav-btn" onclick="openSavedOverlay()" style="cursor:pointer;">🔖 Saved</span></li>
+    <li><button class="btn-plan">Plan a Trip →</button></li>
+    <!-- user avatar placeholder -->
+    <li><div class="avatar">👤</div></li>
+  </ul>
+</nav>
+
+<!-- hero section: main landing banner -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">AI Assisted Travel Planning</div>
+      <h1 class="hero-title">Your journey.<br><span class="gold">Perfectly planned.</span></h1>
+      <p class="hero-desc">AIMargdarshak transforms the noise of travel planning into a single, perfectly crafted itinerary — built around how you travel, not how everyone else does.</p>
+      <!-- scroll to how it works section on click -->
+      <button class="btn-hero" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Plan My Trip →</button>
+    </div>
+  </div>
+
+  <!-- hero bottom bar: 4 key highlights -->
+  <div class="hero-bar">
+    <div class="bar-item">
+      <div class="bar-icon">☆</div>
+      <div class="bar-text">
+        <strong>AI-Powered Itineraries</strong>
+        <span>Smart, personalized plans</span>
+      </div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-icon">📍</div>
+      <div class="bar-text">
+        <strong>Curated Experiences</strong>
+        <span>Handpicked for you</span>
+      </div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-icon">⏱</div>
+      <div class="bar-text">
+        <strong>Save Hours</strong>
+        <span>Fast, effortless planning</span>
+      </div>
+    </div>
+    <div class="bar-item">
+      <div class="bar-icon">🛡</div>
+      <div class="bar-text">
+        <strong>Trusted &amp; Reliable</strong>
+        <span>Verified recommendations</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- stats bar: platform numbers -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value">50K+</div>
+    <div class="stat-label">Itineraries Generated</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">120+</div>
+    <div class="stat-label">Countries Covered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">4.9★</div>
+    <div class="stat-label">Average Rating</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">&lt;20s</div>
+    <div class="stat-label">To Full Itinerary</div>
+  </div>
+</div>
+
+<!-- scrolling ticker: destination names auto-scroll left -->
+<div class="ticker-section">
+  <div class="ticker-label">Destinations our travelers have explored</div>
+  <div class="ticker-track" id="ticker">
+    <!-- duplicated for seamless infinite loop -->
+    <div class="ticker-item">Rajasthan <span class="ticker-dot">•</span> Bali <span class="ticker-dot">•</span> Paris <span class="ticker-dot">•</span> Tokyo <span class="ticker-dot">•</span> Kerala <span class="ticker-dot">•</span> Santorini <span class="ticker-dot">•</span> Varanasi <span class="ticker-dot">•</span> New York <span class="ticker-dot">•</span> Ladakh <span class="ticker-dot">•</span> Maldives <span class="ticker-dot">•</span> Istanbul <span class="ticker-dot">•</span> Goa <span class="ticker-dot">•</span></div>
+    <div class="ticker-item">Rajasthan <span class="ticker-dot">•</span> Bali <span class="ticker-dot">•</span> Paris <span class="ticker-dot">•</span> Tokyo <span class="ticker-dot">•</span> Kerala <span class="ticker-dot">•</span> Santorini <span class="ticker-dot">•</span> Varanasi <span class="ticker-dot">•</span> New York <span class="ticker-dot">•</span> Ladakh <span class="ticker-dot">•</span> Maldives <span class="ticker-dot">•</span> Istanbul <span class="ticker-dot">•</span> Goa <span class="ticker-dot">•</span></div>
+  </div>
+</div>
+
+<!-- problem section: explains what pain point we solve -->
+<section class="problem-section" id="about">
+  <div class="container">
+    <div class="problem-grid">
+      <div class="reveal">
+        <div class="eyebrow">The problem we solve</div>
+        <h2 class="problem-title">Planning travel is <span class="gold">exhausting.</span> It shouldn't be.</h2>
+        <p class="problem-desc">Hours of tabs. Conflicting reviews. Hotels that look nothing like the photos. Budget spirals. Timing disasters. You spend more energy planning the trip than enjoying it.</p>
+        <p class="problem-desc">AIMargdarshak is your brilliant travel companion — one that knows every destination, every local gem, every optimal route, and builds your perfect itinerary in under 20 seconds.</p>
+        <button class="btn-outline"><svg class="pin-icon btn-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Plan My Journey</button>
+      </div>
+
+      <!-- image slideshow: rotates through destination photos -->
+      <div class="reveal" style="transition-delay:0.15s;">
+        <div class="problem-image" id="slideshow">
+
+          <!-- slide 1: great wall of china -->
+          <div class="slide active">
+            <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=900&q=80" alt="Great Wall of China" />
+            <div class="img-caption">
+              <h4>Great Wall</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> China</p>
+            </div>
+          </div>
+
+          <!-- slide 2: machu picchu -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?w=900&q=80" alt="Machu Picchu" />
+            <div class="img-caption">
+              <h4>Machu Picchu</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Peru</p>
+            </div>
+          </div>
+
+          <!-- slide 3: burj khalifa -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=900&q=80" alt="Burj Khalifa Dubai" />
+            <div class="img-caption">
+              <h4>Burj Khalifa</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Dubai, UAE</p>
+            </div>
+          </div>
+
+          <!-- slide 4: sydney opera house -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=900&q=80" alt="Sydney Opera House" />
+            <div class="img-caption">
+              <h4>Sydney Opera</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Sydney, Australia</p>
+            </div>
+          </div>
+
+          <!-- slide 5: colosseum rome -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=900&q=80" alt="Colosseum Rome" />
+            <div class="img-caption">
+              <h4>Colosseum</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Rome, Italy</p>
+            </div>
+          </div>
+
+          <!-- slide 6: santorini -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=900&q=80" alt="Santorini Greece" />
+            <div class="img-caption">
+              <h4>Santorini</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Greece</p>
+            </div>
+          </div>
+
+          <!-- slide 7: taj mahal -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=900&q=80" alt="Taj Mahal Agra" />
+            <div class="img-caption">
+              <h4>Taj Mahal</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Agra, India</p>
+            </div>
+          </div>
+
+          <!-- slide 8: bali -->
+          <div class="slide">
+            <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=900&q=80" alt="Bali Rice Terraces" />
+            <div class="img-caption">
+              <h4>Bali</h4>
+              <p><svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Indonesia</p>
+            </div>
+          </div>
+
+          <!-- dot indicators for slideshow navigation -->
+          <div class="img-dots" id="slide-dots"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- how it works section: 3-step process -->
+<section class="steps-section" id="how">
+  <div class="container">
+    <div class="steps-header reveal">
+      <div class="eyebrow" style="justify-content:center;">Simple by design</div>
+      <h2 class="steps-title">From dream to <span class="italic">itinerary</span> in three steps</h2>
+      <p class="steps-sub">No forms from 2008. No endless dropdowns. Just you, your dream trip, and AI that actually understands travel.</p>
+    </div>
+
+    <!-- step cards grid -->
+    <div class="steps-grid reveal">
+
+      <!-- step 1: enter destination and dates -->
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon step-icon-location">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C8.686 2 6 4.686 6 8c0 4.5 6 12 6 12s6-7.5 6-12c0-3.314-2.686-6-6-6z"/>
+            <circle cx="12" cy="8" r="2.2"/>
+          </svg>
+        </div>
+        <h3 class="step-title">Tell Us Where &amp; When</h3>
+        <p class="step-desc">Drop in your starting point, destination, travel dates, and the size of your group. Add stops along the way if you want a multi-city adventure.</p>
+      </div>
+
+      <!-- step 2: set travel preferences -->
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon">☆</div>
+        <h3 class="step-title">Set Your Travel DNA</h3>
+        <p class="step-desc">Are you a cultural explorer or a beach bum? Backpacker or luxury seeker? Tell us your interests, budget, and travel style. We'll handle the rest.</p>
+      </div>
+
+      <!-- step 3: get ai-generated itinerary -->
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon">⚡</div>
+        <h3 class="step-title">Get Your Itinerary</h3>
+        <p class="step-desc">In seconds, receive a day-by-day plan tailored entirely to you — complete with timings, local recommendations, and travel tips no guidebook will tell you.</p>
+      </div>
+    </div>
+
+    <!-- cta button: opens the ai wizard -->
+    <div class="steps-cta reveal">
+      <button id="start-wizard-btn" class="btn-gold-outline">
+  ⚡ Try It Now — It Takes 2 Minutes
+</button>
+    </div>
+  </div>
+</section>
+
+<!-- features section: platform capabilities -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <div class="eyebrow">Built different</div>
+      <h2 class="features-title">Every detail, <span class="italic">engineered</span> for the modern traveler</h2>
+      <p class="features-desc">We obsessed over every part of your travel planning experience so you don't have to.</p>
+    </div>
+
+    <!-- feature cards grid -->
+    <div class="features-grid reveal">
+
+      <!-- feature 1: privacy -->
+      <div class="feat-card">
+        <div class="feat-icon">🔒</div>
+        <h3 class="feat-title">Privacy First, Always</h3>
+        <p class="feat-desc">Your travel plans are yours. We never sell your data, never share your itineraries, and never build ad profiles from your journeys. Zero. None. Ever.</p>
+        <span class="feat-badge badge-gold">🔒 End-to-end encrypted</span>
+      </div>
+
+      <!-- feature 2: speed -->
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(200,181,96,0.1);">⚡</div>
+        <h3 class="feat-title">20 Seconds to Your Plan</h3>
+        <p class="feat-desc">What used to take 6 hours of frantic tab-switching, cross-referencing, and second-guessing now takes less time than making your morning tea.</p>
+        <span class="feat-badge badge-gold">⏱ Avg. 18s generation time</span>
+      </div>
+
+      <!-- feature 3: personalization -->
+      <div class="feat-card">
+        <div class="feat-icon purple">☆</div>
+        <h3 class="feat-title">Truly Personalized</h3>
+        <p class="feat-desc">Not a cookie-cutter 'Top 10 Things to Do.' Every itinerary is built from scratch for your interests, pace, budget, and group — no two are alike.</p>
+        <span class="feat-badge badge-purple">✦ Unique every time</span>
+      </div>
+
+      <!-- feature 4: multi-stop routes -->
+      <div class="feat-card">
+        <div class="feat-icon teal">📈</div>
+        <h3 class="feat-title">Multi-Stop Routes</h3>
+        <p class="feat-desc">Planning a grand tour across multiple cities? Add as many stops as you need. The AI optimizes the order, timings, and connections automatically.</p>
+        <span class="feat-badge badge-teal">🗺 Route optimized</span>
+      </div>
+
+      <!-- feature 5: budget planning -->
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(200,181,96,0.1);">💲</div>
+        <h3 class="feat-title">Smart Budget Planning</h3>
+        <p class="feat-desc">From budget backpacker to ultra-luxury traveler — set your spend, and every recommendation, hotel, and activity is matched to what you can actually afford.</p>
+        <span class="feat-badge badge-gold">💡 Budget-aware AI</span>
+      </div>
+
+      <!-- feature 6: local knowledge -->
+      <div class="feat-card">
+        <div class="feat-icon pink">🌐</div>
+        <h3 class="feat-title">Hyper-Local Intelligence</h3>
+        <p class="feat-desc">Skip the tourist traps. Get recommendations from local knowledge bases — the breakfast spot that only residents know, the viewpoint that isn't on any map.</p>
+        <span class="feat-badge badge-pink">🌟 Beyond the guidebook</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- reviews section: user testimonials -->
+<section class="reviews-section">
+  <div class="container">
+    <div class="eyebrow reveal">Real travelers, real journeys</div>
+    <h2 class="reviews-title reveal">They planned it. <span class="italic">They lived it.</span></h2>
+    <div class="reviews-grid reveal">
+
+      <!-- review 1 -->
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"I've tried every travel app. Nothing has come close to this. The Rajasthan itinerary it built for us was more thoughtful than anything I could have put together in a week."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">PA</div>
+          <div>
+            <div class="reviewer-name">Priya Agarwal</div>
+            <div class="reviewer-sub">Mumbai · Family of 4</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- review 2 -->
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"Solo travel to Japan was daunting. AIMargdarshak gave me a 10-day Tokyo-to-Kyoto plan that was exactly my pace. Every single recommendation was spot on."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">RS</div>
+          <div>
+            <div class="reviewer-name">Rohan Sharma</div>
+            <div class="reviewer-sub">Delhi · Solo Traveller</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- review 3 -->
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">"The budget feature is insane. We told it ₹40,000 per person for Bali and it gave us a luxury-feeling trip that came in under budget. Our friend group is still talking about it."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">NK</div>
+          <div>
+            <div class="reviewer-name">Neha Kapoor</div>
+            <div class="reviewer-sub">Bangalore · Group of 6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- call to action section -->
+<section class="cta-section">
+  <h2 class="cta-title reveal">Your next adventure is<br>one click <span class="italic">away.</span></h2>
+  <p class="cta-sub reveal">Stop bookmarking "travel inspo" posts you'll never read. Let AIMargdarshak build your perfect trip right now.</p>
+  <button class="btn-gold-outline reveal">⚡ Build My Itinerary Now</button>
+</section>
+
+<!-- site footer -->
+<footer>
+  <div class="footer-grid">
+
+    <!-- brand column: logo, description, social links -->
+    <div class="footer-brand">
+      <div class="logo-text"><span class="logo-ai">Margdar</span><span class="logo-gold">shak</span></div>
+      <p>India's most intelligent AI travel planner. Built for the curious, the adventurous, and the ones who believe every journey deserves to be extraordinary.</p>
+      <p class="footer-tagline">"Discover Hidden Gems with AI Margdarshak" — Explore places beyond the crowd, experience real culture, and support local vendors on every journey.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <div class="social-links">
+          <!-- instagram link -->
+          <a href="#" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <!-- linkedin link -->
+          <a href="#" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+        </div>
+        <button class="connect-btn connect-btn-gold">✉ Connect with Us</button>
+      </div>
+    </div>
+
+    <!-- product links column -->
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">What's New</a></li>
+        <li><a href="#">Roadmap</a></li>
+      </ul>
+    </div>
+
+    <!-- company links column -->
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press Kit</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- legal links column -->
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Refund Policy</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- footer bottom: copyright and quick links -->
+  <div class="footer-bottom">
+    <p>© 2026 <strong>AIMargdarshak</strong>. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- main javascript file -->
+<script src="script.js"></script>
+
+<!-- our team overlay: shown when "our team" nav button is clicked -->
+<div id="team-overlay" class="team-overlay-hidden">
+  <div class="team-page">
+
+    <!-- team page nav bar -->
+    <nav class="team-nav">
+      <a class="nav-logo" href="#">
+        <img src="aimargdarshakLogo.png" alt="AIMargdarshak Logo" style="height:40px;width:auto;" />
+        <span><span class="logo-ai">AIMargdar</span><span class="logo-gold">shak</span></span>
+      </a>
+      <!-- back button closes the overlay -->
+      <button class="team-back-btn" onclick="closeTeamPage()">← Back</button>
+    </nav>
+
+    <!-- team hero header -->
+    <div class="team-hero">
+      <div class="team-hero-badge">● THE PEOPLE BEHIND IT</div>
+      <h1 class="team-hero-title">Built by travelers,<br><span class="team-gold-italic">for travelers.</span></h1>
+      <p class="team-hero-sub">A small, focused team that genuinely loves to travel — and genuinely believes AI can make every journey more meaningful, personal, and effortless.</p>
+    </div>
+
+    <div class="team-section-label">LEADERSHIP TEAM</div>
+
+    <!-- leadership team members list -->
+    <div class="team-members-list">
+
+      <!-- founder: harsh tripathi -->
+      <div class="team-member-card">
+        <div class="team-member-left">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#c8b560,#a89240);">HT</div>
+          <div class="team-role-badge">FOUNDER</div>
+          <div class="team-member-name">Harsh Tripathi</div>
+        </div>
+        <div class="team-member-right">
+          <div class="team-quote-mark">"</div>
+          <p>Harsh founded AIMargdarshak with a singular vision — making intelligent travel planning accessible to every Indian explorer. With a deep passion for technology and an even deeper love for travel, he drives the product's soul.</p>
+        </div>
+      </div>
+
+      <!-- co-founder: sarthak tripathi -->
+      <div class="team-member-card">
+        <div class="team-member-left">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#2dd4bf,#0f9f8a);">ST</div>
+          <div class="team-role-badge">CO-FOUNDER</div>
+          <div class="team-member-name">Sarthak Tripathi</div>
+        </div>
+        <div class="team-member-right">
+          <div class="team-quote-mark">"</div>
+          <p>Sarthak co-built AIMargdarshak from the ground up, leading go-to-market strategy and partnerships. He believes great travel is about stories, not schedules — and that belief shapes every product decision.</p>
+        </div>
+      </div>
+
+      <!-- cto: utkarsh jaiswal -->
+      <div class="team-member-card">
+        <div class="team-member-left">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);">UJ</div>
+          <div class="team-role-badge" style="border-color:#7c3aed;color:#7c3aed;">CHIEF TECHNOLOGY OFFICER</div>
+          <div class="team-member-name">Utkarsh Jaiswal</div>
+        </div>
+        <div class="team-member-right">
+          <div class="team-quote-mark">"</div>
+          <p>Utkarsh architects the AI engine that powers every itinerary. A systems thinker at heart, he obsesses over speed, reliability, and intelligence that genuinely understands you.</p>
+        </div>
+      </div>
+
+      <!-- cfo: nikhil mishra -->
+      <div class="team-member-card">
+        <div class="team-member-left">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#2dd4bf,#0f9f8a);">NM</div>
+          <div class="team-role-badge" style="border-color:#2dd4bf;color:#2dd4bf;">CHIEF FINANCIAL OFFICER</div>
+          <div class="team-member-name">Nikhil Mishra</div>
+        </div>
+        <div class="team-member-right">
+          <div class="team-quote-mark">"</div>
+          <p>Nikhil keeps AIMargdarshak growing sustainably. His financial acumen ensures every rupee spent translates into real value for travelers — balancing bold ambition with disciplined execution.</p>
+        </div>
+      </div>
+
+      <!-- director: sudha tripathi -->
+      <div class="team-member-card">
+        <div class="team-member-left">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#ec4899,#be185d);">SuT</div>
+          <div class="team-role-badge" style="border-color:#ec4899;color:#ec4899;">DIRECTOR</div>
+          <div class="team-member-name">Sudha Tripathi</div>
+        </div>
+        <div class="team-member-right">
+          <div class="team-quote-mark">"</div>
+          <p>Sudha brings wisdom, structure, and strategic clarity to the leadership team. Her guidance ensures AIMargdarshak stays true to its mission — building technology that genuinely enriches people's lives.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- contributors section -->
+    <div class="team-section-label" style="margin-top:60px;">CONTRIBUTORS</div>
+    <p class="team-contributors-sub">These talented individuals have contributed their expertise and passion to help shape AIMargdarshak into what it is today.</p>
+
+    <div class="team-members-list contributors-list">
+
+      <!-- contributor: yuvraj pilania - ui/ux and marketing -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#c8b560,#a89240);">YP</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Yuvraj Pilania</div>
+          <div class="contrib-role" style="color:#c8b560;">UI/UX Designer · Marketing &amp; Strategies</div>
+        </div>
+        <div class="team-member-right">
+          <p>Crafts intuitive user experiences and drives strategic marketing initiatives that define how travelers perceive the product.</p>
+        </div>
+      </div>
+
+      <!-- contributor: ishika singh - media support -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#2dd4bf,#0f9f8a);">IS</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Ishika Singh</div>
+          <div class="contrib-role" style="color:#9ca3af;">Media Support</div>
+        </div>
+        <div class="team-member-right">
+          <p>Manages media outreach and brand visibility, ensuring AIMargdarshak's story reaches the right audience effectively.</p>
+        </div>
+      </div>
+
+      <!-- contributor: neha mishra - advising support -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);">NM</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Neha Mishra</div>
+          <div class="contrib-role" style="color:#9ca3af;">Advising Support</div>
+        </div>
+        <div class="team-member-right">
+          <p>Provides thoughtful advisory guidance that helps the team navigate complex decisions with clarity and confidence.</p>
+        </div>
+      </div>
+
+      <!-- contributor: kangana sharma - content creator -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#2dd4bf,#0f9f8a);">KS</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Kangana Sharma</div>
+          <div class="contrib-role" style="color:#9ca3af;">Content Creator</div>
+        </div>
+        <div class="team-member-right">
+          <p>Produces compelling narratives and travel content that inspire users to explore the world with curiosity and purpose.</p>
+        </div>
+      </div>
+
+      <!-- contributor: kaira - content creator -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#ec4899,#be185d);">K</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Kaira</div>
+          <div class="contrib-role" style="color:#ec4899;">Content Creator</div>
+        </div>
+        <div class="team-member-right">
+          <p>Brings fresh creative energy to every piece of content, weaving storytelling with travel culture in a distinctive voice.</p>
+        </div>
+      </div>
+
+      <!-- contributor: chetna verma - travel insights -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#f59e0b,#d97706);">CV</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Chetna Verma</div>
+          <div class="contrib-role" style="color:#f59e0b;">Travel Insights</div>
+        </div>
+        <div class="team-member-right">
+          <p>Contributes deep destination knowledge and on-ground travel intelligence that makes every itinerary feel genuinely local.</p>
+        </div>
+      </div>
+
+      <!-- contributor: khushi mishra - legal support -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#2dd4bf,#0f9f8a);">KM</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Khushi Mishra</div>
+          <div class="contrib-role" style="color:#2dd4bf;">Legal Support</div>
+        </div>
+        <div class="team-member-right">
+          <p>Ensures the platform operates with full legal compliance, safeguarding both the company and its users at every step.</p>
+        </div>
+      </div>
+
+      <!-- contributor: akshara sharma - quality analyst -->
+      <div class="team-member-card contrib-card">
+        <div class="team-member-left contrib-left">
+          <div class="team-avatar contrib-avatar" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);">AS</div>
+          <div class="team-member-name" style="font-size:0.92rem;">Akshara Sharma</div>
+          <div class="contrib-role" style="color:#7c3aed;">Quality Analyst</div>
+        </div>
+        <div class="team-member-right">
+          <p>Rigorously tests every feature and flow, ensuring the product meets the highest standards before it reaches travelers.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="height:80px;"></div>
+  </div>
+</div>
+
+<!-- saved itineraries overlay: shows bookmarked trips -->
+<div id="saved-overlay" class="saved-overlay-hidden">
+  <div class="saved-modal">
+    <div class="saved-modal-header">
+      <div class="saved-header-left">
+        <div class="saved-icon-box">🔖</div>
+        <div>
+          <div class="saved-title">Saved <span class="saved-title-italic">Itineraries</span></div>
+          <div class="saved-count">0 saved trips</div>
+        </div>
+      </div>
+      <!-- close button for the overlay -->
+      <button class="saved-close-btn" onclick="closeSavedOverlay()">✕</button>
+    </div>
+    <div class="saved-modal-body">
+      <!-- empty state shown when no trips are saved yet -->
+      <div class="saved-empty-state">
+        <div class="saved-empty-icon">🔖</div>
+        <h3>No saved itineraries yet</h3>
+        <p>Generate a trip and hit <span class="saved-highlight">Save Itinerary</span> to store it here for later.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ai trip planning wizard overlay: multi-step form -->
+<div id="ai-wizard-overlay" class="wiz-hidden">
+  <div class="wiz-header">
+    <h2>Plan Your <span class="wiz-highlight">Perfect</span> Journey</h2>
+    <p>Fill in the details below and let AI craft your ideal itinerary.</p>
+
+    <!-- step progress indicators -->
+    <div class="wiz-progress">
+      <div class="wiz-step-indicator active" data-step="1">1. Route</div>
+      <div class="wiz-step-indicator" data-step="2">2. Dates & Group</div>
+      <div class="wiz-step-indicator" data-step="3">3. Preferences</div>
+      <div class="wiz-step-indicator" data-step="4">4. Generate</div>
+    </div>
+  </div>
+
+  <div class="wiz-body">
+
+    <!-- wizard step 1: enter route (from and to) -->
+    <div class="wiz-step-content active" id="wiz-step-1">
+      <div class="wiz-card">
+        <h3>Your Journey Route</h3>
+        <div class="wiz-input-group">
+          <label>STARTING POINT</label>
+          <input type="text" placeholder="Enter city, state or country..." id="wiz-from">
+        </div>
+        <div class="wiz-input-group">
+          <label>FINAL DESTINATION</label>
+          <input type="text" placeholder="Where are you headed?" id="wiz-to">
+        </div>
+      </div>
+      <div class="wiz-footer">
+        <button class="wiz-btn-close" onclick="closeWizard()">Cancel</button>
+        <button class="wiz-btn-primary" onclick="nextStep(2)">Dates & Group →</button>
+      </div>
+    </div>
+
+    <!-- wizard step 2: travel dates and group size -->
+    <div class="wiz-step-content" id="wiz-step-2">
+      <div class="wiz-card">
+        <h3>Travel Dates</h3>
+        <div class="wiz-row">
+          <div class="wiz-input-group">
+            <label>DEPARTURE DATE</label>
+            <input type="date" id="wiz-start-date">
+          </div>
+          <div class="wiz-input-group">
+            <label>RETURN DATE</label>
+            <input type="date" id="wiz-end-date">
+          </div>
+        </div>
+        <h3 class="wiz-mt">Your Group</h3>
+        <div class="wiz-row">
+          <div class="wiz-input-group">
+            <label>TRAVELERS</label>
+            <input type="number" min="1" value="2" id="wiz-travelers">
+          </div>
+        </div>
+      </div>
+      <div class="wiz-footer">
+        <button class="wiz-btn-secondary" onclick="nextStep(1)">← Back</button>
+        <button class="wiz-btn-primary" onclick="nextStep(3)">Preferences →</button>
+      </div>
+    </div>
+
+    <!-- wizard step 3: travel style and budget -->
+    <div class="wiz-step-content" id="wiz-step-3">
+      <div class="wiz-card">
+        <h3>Travel Style</h3>
+        <!-- style selection boxes, first one is active by default -->
+        <div class="wiz-grid-styles">
+          <div class="wiz-style-box active">Cultural</div>
+          <div class="wiz-style-box">Adventure</div>
+          <div class="wiz-style-box">Relaxation</div>
+          <div class="wiz-style-box">Food & Dining</div>
+        </div>
+        <h3 class="wiz-mt">Budget (Per Person)</h3>
+        <!-- budget slider: range 5000 to 500000 -->
+        <input type="range" min="5000" max="500000" value="50000" class="wiz-slider" id="wiz-budget">
+        <p id="wiz-budget-display">₹50,000</p>
+      </div>
+      <div class="wiz-footer">
+        <button class="wiz-btn-secondary" onclick="nextStep(2)">← Back</button>
+        <button class="wiz-btn-primary" onclick="generateItinerary()">Review & Generate →</button>
+      </div>
+    </div>
+
+    <!-- wizard loading screen: shown while ai generates the itinerary -->
+    <div class="wiz-step-content" id="wiz-step-loading">
+      <div class="wiz-loading-screen">
+        <div class="wiz-spinner"></div>
+        <h2 id="wiz-loading-text">Reading local intelligence...</h2>
+        <p>Scanning 50,000+ data points for <span id="wiz-load-dest">your trip</span></p>
+      </div>
+    </div>
+
+    <!-- wizard result dashboard: shows the generated itinerary summary -->
+    <div class="wiz-step-content" id="wiz-step-dashboard">
+      <div class="wiz-dashboard-header">
+        <h2 id="wiz-final-title">Jaipur → Udaipur</h2>
+        <button class="wiz-btn-primary" onclick="closeWizard()">Save & Close</button>
+      </div>
+
+      <!-- trip summary stats -->
+      <div class="wiz-dashboard-stats">
+        <div class="wiz-stat">TOTAL DAYS<br><b>2</b></div>
+        <div class="wiz-stat">ESTIMATED BUDGET<br><b id="wiz-final-budget">₹100,000</b></div>
+        <div class="wiz-stat">ACTIVITIES<br><b>10</b></div>
+      </div>
+
+      <!-- sample timeline items -->
+      <div class="wiz-dashboard-timeline">
+        <div class="wiz-timeline-item">
+          <span class="wiz-tag wiz-tag-sightseeing">Sightseeing</span>
+          <h4>Sunrise meditation by the waterfront</h4>
+          <p>Early Morning • ₹500</p>
+        </div>
+        <div class="wiz-timeline-item">
+          <span class="wiz-tag wiz-tag-dining">Dining</span>
+          <h4>Rooftop stargazing session & Dinner</h4>
+          <p>Night • ₹2,000</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
